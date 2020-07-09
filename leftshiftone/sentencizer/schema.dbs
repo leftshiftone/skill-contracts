@@ -1,0 +1,16 @@
+class SentencizerMessage(primary) {
+    message: SentencizerMessageType
+}
+
+union SentencizerMessageType {
+    SentencizerResponse
+    SentencizerRequest
+}
+
+class SentencizerRequest {
+    text: string
+}
+
+class SentencizerResponse {
+  tokens: [string]
+}

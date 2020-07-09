@@ -1,0 +1,29 @@
+class DatabaseConnectorMessage(primary) {
+    message: DatabaseConnectorMessageType
+}
+
+union DatabaseConnectorMessageType {
+    DatabaseConnectorRequest
+    DatabaseConnectorResponse
+}
+
+class DatabaseConnectorRequest {
+    sql: string
+}
+
+union ResultType {
+    ResultSet
+    Result
+}
+
+class ResultSet {
+    row: map
+}
+
+class Result {
+    result: string
+}
+
+class DatabaseConnectorResponse {
+    result: ResultType
+}

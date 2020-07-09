@@ -1,0 +1,151 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+buildscript {
+
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "one.leftshift.asteria:asteria-docs:latest.release"
+        classpath "one.leftshift.asteria:asteria-dependency:latest.release"
+        classpath "one.leftshift.asteria:asteria-email:latest.release"
+        classpath "one.leftshift.asteria:asteria-publish:latest.release"
+        classpath "one.leftshift.asteria:asteria-version:latest.release"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+    }
+}
+
+apply plugin: "java"
+apply plugin: "one.leftshift.asteria-email"
+apply plugin: "one.leftshift.asteria-publish"
+apply plugin: "com.jfrog.bintray"
+
+asteriaEmail {
+    smtpHost = System.getenv("ASTERIA_EMAIL_SMTP_HOST")
+    smptUser = System.getenv("ASTERIA_EMAIL_SMTP_USER")
+    smptPassword = System.getenv("ASTERIA_EMAIL_SMTP_PASSWORD")
+    sender = System.getenv("ASTERIA_EMAIL_SENDER")
+}
+
+asteriaPublish {
+    enableBranchSnapshotRepositories = true
+}
+
+allprojects {
+    apply plugin: "one.leftshift.asteria-dependency"
+    apply plugin: "one.leftshift.asteria-version"
+    apply plugin: "java"
+
+    repositories {
+        jcenter()
+    }
+
+    asteriaDependency {
+        enableBranchSnapshotRepositories = true
+    }
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.13.RELEASE")
+        }
+        dependencies {
+            dependency "org.apache.velocity:velocity-engine-core:2.1"
+        }
+    }
+
+    if (System.getenv("CI")) {
+        afterEvaluate { rootProject.tasks.postRelease.finalizedBy rootProject.tasks.sendReleaseEmail }
+        if (tasks.findByName("publish")) {
+            afterEvaluate { rootProject.tasks.postRelease.dependsOn tasks.publish }
+        }
+    }
+}
+
+repositories {
+    jcenter()
+    maven {
+        credentials(AwsCredentials) {
+            accessKey gradle.awsAccessKey
+            secretKey gradle.awsSecretKey
+        }
+        url gradle.releasesRepositoryUrl
+    }
+    maven {
+        credentials(AwsCredentials) {
+            accessKey gradle.awsAccessKey
+            secretKey gradle.awsSecretKey
+        }
+        url gradle.snapshotsRepositoryUrl
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "leftshiftone"
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = project.name
+            from components.java
+            pom.withXml {
+                Node root = asNode()
+                root.appendNode("name", "SKILL CONTRACTS")
+                root.appendNode("description", "SKILL CONTRACTS is an open source library that contains multiple contracts compatible with GAIA Skills.")
+                root.appendNode("url", "https://github.com/leftshiftone/skill-contracts")
+
+                Node licenses = root.appendNode("licenses")
+                Node license = licenses.appendNode("license")
+                license.appendNode("name", "Apache License 2.0")
+                license.appendNode("url", "https://github.com/leftshiftone/skill-contracts/blob/master/LICENSE")
+
+                Node developers = root.appendNode("developers")
+                Node developer = developers.appendNode("developer")
+                developer.appendNode("id", "leftshiftone")
+                developer.appendNode("name", "Leftshift One")
+                developer.appendNode("email", "contact@leftshift.one")
+                developer.appendNode("organization", "Leftshift One Software GmbH")
+                developer.appendNode("organizationUrl", "https://www.leftshift.one")
+
+                Node scm = root.appendNode("scm")
+                scm.appendNode("connection", "scm:git:git://github.com/leftshiftone/skill-contracts.git")
+                scm.appendNode("developerConnection", "scm:git:ssh://github.com:leftshiftone/skill-contracts.git")
+                scm.appendNode("url", "https://github.com/leftshiftone/skill-contracts")
+            }
+        }
+    }
+}
+
+bintray {
+    logger.info "Bintray deploy with user [${System.getenv('BINTRAY_USER')}] while working on ${project.name}"
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publish = true
+    override = true
+    pkg {
+        repo = "skill-contracts"
+        name = "${project.group}.${project.name}"
+        userOrg = "leftshiftone"
+        licenses = ["Apache License 2.0"]
+        vcsUrl = "https://github.com/leftshiftone/skill-contracts.git"
+        publications = ["mavenJava"]
+    }
+}
+
+if (System.getenv("CI")) {
+    publish.finalizedBy bintrayUpload
+}
+
+if (System.getenv("CI") == null || System.getenv("CI") != "true") {
+    tasks.release.dependsOn tasks.generateLock
+    tasks.release.dependsOn tasks.saveLock
+    tasks.release.dependsOn tasks.persistDependencyLock
+}

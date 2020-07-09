@@ -1,0 +1,20 @@
+class NEMMessage(primary) {
+    message: NEMMessageType
+}
+
+union NEMMessageType {
+    NEMResponse
+    NEMRequest
+}
+
+class NEMResponse {
+  nem: [NEMResult]
+}
+
+class NEMResult {
+    text: string
+}
+
+class NEMRequest {
+    text: string
+}

@@ -1,0 +1,38 @@
+// schema definition for text embedding
+class EmbeddingMessage(primary) {
+    message: EmbeddingMessageType
+}
+class EmbeddingRequest {
+    text: string
+}
+class EmbeddingResponse {
+    embedding: [float]
+}
+
+class Similarity {
+    text: string
+    probability: float
+}
+class MostSimilarRequest {
+    text: string
+}
+class MostSimilarResponse {
+    similarities: [Similarity]
+}
+
+class SimilarityRequest {
+    text1: string
+    text2: string
+}
+class SimilarityResponse {
+    value: float;
+}
+
+union EmbeddingMessageType {
+    EmbeddingRequest
+    EmbeddingResponse
+    MostSimilarRequest
+    MostSimilarResponse
+    SimilarityRequest
+    SimilarityResponse
+}

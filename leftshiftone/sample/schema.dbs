@@ -1,0 +1,19 @@
+class SampleMessage (primary) {
+    message: SampleMessageType
+}
+
+union SampleMessageType {
+    SampleRequest
+    SampleResponse
+}
+
+class SampleRequest {
+    imageContent: string
+    mimeType: string
+}
+
+class SampleResponse {
+    rnd: int
+    imageContent: string
+    mimeType: string
+}

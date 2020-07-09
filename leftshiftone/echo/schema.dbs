@@ -1,0 +1,17 @@
+class EchoMessage (primary) {
+    message: EchoMessageType
+}
+
+union EchoMessageType {
+    EchoRequest
+    EchoResponse
+}
+
+class EchoRequest {
+    request: string
+}
+
+class EchoResponse {
+   rnd: int
+   response: string
+}

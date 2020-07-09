@@ -1,0 +1,16 @@
+class TokenizerMessage(primary) {
+    message: TokenizerMessageType
+}
+
+union TokenizerMessageType {
+    TokenizerResponse
+    TokenizerRequest
+}
+
+class TokenizerRequest {
+    text: string
+}
+
+class TokenizerResponse {
+  tokens: [string]
+}

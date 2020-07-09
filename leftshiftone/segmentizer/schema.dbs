@@ -1,0 +1,16 @@
+class SegmentizerRequest {
+    text: string
+}
+
+class SegmentizerResponse {
+    sentences: [string]
+}
+
+union RheaMessageType {
+    SegmentizerRequest
+    SegmentizerResponse
+}
+
+class SegmentizerMessage(primary) {
+    message: RheaMessageType
+}

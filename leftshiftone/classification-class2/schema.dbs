@@ -1,0 +1,25 @@
+class ClassificatioClass2Message(primary) {
+    message: ClassificatioClass2MessageType
+}
+
+union ClassificatioClass2MessageType {
+    ClassificationClass2Request
+    ClassificationClass2Response
+}
+
+class Vector {
+    bytes:[byte];
+}
+
+class ClassificationClass2Request {
+    vectors:[Vector];
+}
+
+class Probability {
+  probability1:float;
+  probability2:float;
+}
+
+class ClassificationClass2Response {
+    response:[Probability];
+}

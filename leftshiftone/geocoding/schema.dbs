@@ -1,0 +1,43 @@
+class Message {
+    message: MessageType
+}
+
+union MessageType {
+    ReverseGeoCodingRequest
+    GeoCodingRequest
+    ReverseGeoCodingResponse
+    GeoCodingResponse
+}
+
+class GeoCodingRequest {
+    address: string
+    results: int
+}
+
+class ReverseGeoCodingRequest {
+    latitude: float
+    longitude: float
+}
+
+class GeoCodingResponse {
+    locations: [Location]
+}
+
+class ReverseGeoCodingResponse {
+    location: Location
+}
+
+class Location {
+    latitude: float
+    longitude: float
+    house_number: string
+    building: string
+    road: string
+    suburb: string
+    city: string
+    county: string
+    state: string
+    postcode: string
+    country: string
+    country_code: string
+}

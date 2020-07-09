@@ -1,0 +1,17 @@
+class OCRMessage(primary) {
+    message: OCRMessageType
+}
+
+union OCRMessageType {
+    OCRRequest
+    OCRResponse
+}
+
+class OCRRequest {
+    image: [byte]
+}
+
+class OCRResponse {
+  text: string
+  confidence: int
+}

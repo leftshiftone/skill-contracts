@@ -1,0 +1,23 @@
+class NERMessage(primary) {
+    message: NERMessageType
+}
+
+union NERMessageType {
+    NERResponse
+    NERRequest
+}
+
+class NERResponse {
+  ner: [NERResult]
+}
+
+class NERResult {
+    text: string
+    start_char: int
+    end_char: int
+    label: string
+}
+
+class NERRequest {
+    text: string
+}
