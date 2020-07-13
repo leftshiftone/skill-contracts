@@ -10,9 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "one.leftshift.asteria:asteria-docs:latest.release"
         classpath "one.leftshift.asteria:asteria-dependency:latest.release"
-        classpath "one.leftshift.asteria:asteria-email:latest.release"
         classpath "one.leftshift.asteria:asteria-publish:latest.release"
         classpath "one.leftshift.asteria:asteria-version:latest.release"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
@@ -21,16 +19,8 @@ buildscript {
 }
 
 apply plugin: "java"
-apply plugin: "one.leftshift.asteria-email"
 apply plugin: "one.leftshift.asteria-publish"
 apply plugin: "com.jfrog.bintray"
-
-asteriaEmail {
-    smtpHost = System.getenv("ASTERIA_EMAIL_SMTP_HOST")
-    smptUser = System.getenv("ASTERIA_EMAIL_SMTP_USER")
-    smptPassword = System.getenv("ASTERIA_EMAIL_SMTP_PASSWORD")
-    sender = System.getenv("ASTERIA_EMAIL_SENDER")
-}
 
 asteriaPublish {
     enableBranchSnapshotRepositories = true
@@ -47,14 +37,6 @@ allprojects {
 
     asteriaDependency {
         enableBranchSnapshotRepositories = true
-    }
-    dependencyManagement {
-        imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.13.RELEASE")
-        }
-        dependencies {
-            dependency "org.apache.velocity:velocity-engine-core:2.1"
-        }
     }
 
     if (System.getenv("CI")) {
