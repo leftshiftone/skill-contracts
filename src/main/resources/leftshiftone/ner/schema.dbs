@@ -1,0 +1,19 @@
+namespace incoming{
+    class Request {
+        text: string
+    }
+}
+
+namespace outgoing {
+    class Response {
+      ner: [NERResult]
+    }
+
+    class NERResult {
+        text: string
+        start_char: int
+        end_char: int
+        label: string
+    }
+}
+
