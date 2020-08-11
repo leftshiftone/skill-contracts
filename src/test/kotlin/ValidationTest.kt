@@ -13,13 +13,14 @@ class ValidationTest {
     companion object {
         const val INCOMING_NS = "incoming"
         const val OUTGOING_NS = "outgoing"
+        const val TEST_FOLDER_NAME = "__tests__"
     }
 
     @TestFactory
     fun `Test`() = File(ValidationTest::class.java.getResource("/leftshiftone").path).listFiles()
                 .filter { it.isDirectory }
                 .filter { File("$it${File.separator}schema.dbs").exists() }
-                .filter { File("$it${File.separator}__validation__").exists() }
+                .filter { File("$it${File.separator}${TEST_FOLDER_NAME}").exists() }
                 .map {
                     val testCase1 = TestCase(it.name, it.path)
                     DynamicTest.dynamicTest("TestCase: ${testCase1.name}, path: ${testCase1.path} ") {
@@ -32,13 +33,13 @@ class ValidationTest {
 
 
     fun testIncoming(engine: DynabuffersEngine, testCasePath: String){
-        readCaseFiles("${testCasePath}${File.separator}__validation__","valid_request")
+        readCaseFiles("${testCasePath}${File.separator}${TEST_FOLDER_NAME}","valid_request")
                 .map { messageAsString-> testSerialization(engine, messageAsString, INCOMING_NS) }
 
     }
 
     fun testOutgoing(engine: DynabuffersEngine, testCasePath: String){
-        readCaseFiles("${testCasePath}${File.separator}__validation__","valid_response")
+        readCaseFiles("${testCasePath}${File.separator}${TEST_FOLDER_NAME}","valid_response")
                 .map { messageAsString-> testSerialization(engine, messageAsString, OUTGOING_NS) }
     }
 

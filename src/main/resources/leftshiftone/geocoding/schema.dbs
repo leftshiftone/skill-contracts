@@ -1,43 +1,49 @@
-class Message {
-    message: MessageType
-}
+namespace incoming {
+    class Message {
+        message: MessageType
+    }
 
-union MessageType {
-    ReverseGeoCodingRequest
-    GeoCodingRequest
-    ReverseGeoCodingResponse
-    GeoCodingResponse
-}
+    union MessageType {
+        ReverseGeoCodingRequest
+        GeoCodingRequest
+    }
 
-class GeoCodingRequest {
-    address: string
-    results: int
-}
+    class GeoCodingRequest {
+        address: string
+        results: int
+    }
 
-class ReverseGeoCodingRequest {
-    latitude: float
-    longitude: float
+    class ReverseGeoCodingRequest {
+        latitude: float
+        longitude: float
+    }
 }
-
-class GeoCodingResponse {
-    locations: [Location]
-}
-
-class ReverseGeoCodingResponse {
-    location: Location
-}
-
-class Location {
-    latitude: float
-    longitude: float
-    house_number: string
-    building: string
-    road: string
-    suburb: string
-    city: string
-    county: string
-    state: string
-    postcode: string
-    country: string
-    country_code: string
+namespace outgoing {
+    class Message {
+        message: MessageType
+    }
+    union MessageType {
+        ReverseGeoCodingResponse
+        GeoCodingResponse
+    }
+    class GeoCodingResponse {
+        locations: [Location]
+    }
+    class ReverseGeoCodingResponse {
+        location: Location
+    }
+    class Location {
+        latitude: float
+        longitude: float
+        house_number: string
+        building: string
+        road: string
+        suburb: string
+        city: string
+        county: string
+        state: string
+        postcode: string
+        country: string
+        country_code: string
+    }
 }

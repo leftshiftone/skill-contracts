@@ -1,0 +1,10 @@
+{
+    ":type": 0,
+    "message":
+            {
+                "field": "fieldValue",
+                "query": "queryValue",
+                "minimumScore": 0.1,
+                "limit": 5
+            }
+}

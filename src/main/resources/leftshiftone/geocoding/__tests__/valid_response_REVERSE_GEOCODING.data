@@ -1,0 +1,22 @@
+{
+    ":type": 0,
+    "message":
+            {
+                "location":
+                            {
+                                "latitude": 11.1,
+                                "longitude": 22.2,
+                                "house_number": "12A",
+                                "building": "Rockef",
+                                "road": "petersgse",
+                                "suburb": "jakomini",
+                                "city": "graz",
+                                "county": "GU",
+                                "state": "Stmk",
+                                "postcode": "8010",
+                                "country": "Austria",
+                                "country_code": "AT"
+                            }
+
+            }
+}

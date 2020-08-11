@@ -1,5 +1,13 @@
-class Speech2TextMessage (primary) { message: Speech2TextMessageType }
-union Speech2TextMessageType { Speech2TextRequest Speech2TextResponse }
+namespace incoming {
+    class Request {
+        speech: string
+    }
+}
+namespace outgoing {
+    class Response {
+        rnd: int
+        text: string
+    }
+}
 
-class Speech2TextRequest { speech: string }
-class Speech2TextResponse { rnd: int text: string }
+

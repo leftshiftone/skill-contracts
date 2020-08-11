@@ -1,0 +1,18 @@
+{
+    ":type": 2,
+    "message":
+            {
+                "document":
+                        [
+                            {
+                                "key": "aKey",
+                                "value": "aValue"
+                            },
+                            {
+                                "key": "bKey",
+                                "value": "bValue"
+                            }
+                        ]
+
+            }
+}

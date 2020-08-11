@@ -1,25 +1,25 @@
-class ClassificatioClass2Message(primary) {
-    message: ClassificatioClass2MessageType
+namespace incoming {
+    class Request {
+        vectors:[Vector];
+    }
+    class Vector {
+        bytes:[byte];
+    }
 }
 
-union ClassificatioClass2MessageType {
-    ClassificationClass2Request
-    ClassificationClass2Response
+namespace outgoing {
+    class Response {
+        response:[Probability];
+    }
+    class Probability {
+      probability1:float;
+      probability2:float;
+    }
 }
 
-class Vector {
-    bytes:[byte];
-}
 
-class ClassificationClass2Request {
-    vectors:[Vector];
-}
 
-class Probability {
-  probability1:float;
-  probability2:float;
-}
 
-class ClassificationClass2Response {
-    response:[Probability];
-}
+
+
+

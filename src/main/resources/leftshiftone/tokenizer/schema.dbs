@@ -1,16 +1,13 @@
-class TokenizerMessage(primary) {
-    message: TokenizerMessageType
+namespace incoming {
+    class Request {
+        text: string
+    }
 }
 
-union TokenizerMessageType {
-    TokenizerResponse
-    TokenizerRequest
+namespace outgoing {
+    class Response {
+      tokens: [string]
+    }
 }
 
-class TokenizerRequest {
-    text: string
-}
 
-class TokenizerResponse {
-  tokens: [string]
-}

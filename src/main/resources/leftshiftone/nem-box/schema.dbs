@@ -1,32 +1,27 @@
-class NEMMessage(primary) {
-    message: NEMMessageType
+namespace incoming {
+    class Request {
+        text: string
+        x1: float
+        y1: float
+        x2: float
+        y2: float
+        size: float
+        font: string
+    }
 }
+namespace outgoing {
+    class Response {
+        nem: [NEMResult]
+    }
 
-union NEMMessageType {
-    NEMResponse
-    NEMRequest
-}
+    class NEMResult {
+        text: string
+        x1: float
+        y1: float
+        x2: float
+        y2: float
+        size: float
+        font: string
+    }
 
-class NEMResponse {
-  nem: [NEMResult]
-}
-
-class NEMResult {
-    text: string
-    x1: float
-    y1: float
-    x2: float
-    y2: float
-    size: float
-    font: string
-}
-
-class NEMRequest {
-    text: string
-    x1: float
-    y1: float
-    x2: float
-    y2: float
-    size: float
-    font: string
 }

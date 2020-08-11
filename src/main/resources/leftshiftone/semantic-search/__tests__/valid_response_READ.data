@@ -1,0 +1,37 @@
+{
+    ":type": 0,
+    "message":
+            {
+                "results":
+                        [
+                            {
+                                "score": 2.6,
+                                "document":
+                                            [
+                                            {
+                                                "key": "aKey",
+                                                "value": "aValue"
+                                            },
+                                            {
+                                                "key": "aKey1",
+                                                "value": "aValue1"
+                                            }
+                                            ]
+                            },
+                            {
+                                "score": 2.9,
+                                "document":
+                                            [
+                                            {
+                                                "key": "bKey",
+                                                "value": "bValue"
+                                            },
+                                            {
+                                                "key": "bKey1",
+                                                "value": "bValue1"
+                                            }
+                                            ]
+                            }
+                        ]
+            }
+}

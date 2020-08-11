@@ -1,16 +1,10 @@
-class SegmentizerRequest {
-    text: string
+namespace incoming {
+    class Request {
+        text: string
+    }
 }
-
-class SegmentizerResponse {
-    sentences: [string]
-}
-
-union RheaMessageType {
-    SegmentizerRequest
-    SegmentizerResponse
-}
-
-class SegmentizerMessage(primary) {
-    message: RheaMessageType
+namespace outgoing {
+    class Response {
+        sentences: [string]
+    }
 }

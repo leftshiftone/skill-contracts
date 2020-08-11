@@ -1,55 +1,65 @@
-class SEMMessage(primary) {
-    message: SEMMessageType
+namespace incoming {
+    class SEMMessage(primary) {
+        message: SEMMessageType
+    }
+
+    union SEMMessageType {
+       SEMQueryReadRequest
+       SEMPhraseReadRequest
+       SEMWriteRequest
+    }
+    class SEMQueryReadRequest {
+       field: string
+       query: string
+       minimumScore: float
+       limit: int
+    }
+    class SEMPhraseReadRequest {
+        terms: [string]
+        field: string
+        inOrder: boolean
+        slop: int
+        minimumScore: float
+        limit: int
+    }
+    class SEMWriteRequest {
+       document: [Tuple]
+    }
+
+    class Tuple {
+        key: string
+        value: string
+    }
 }
 
-union SEMMessageType {
-   SEMQueryReadRequest
-   SEMPhraseReadRequest
-   SEMWriteRequest
-   SEMReadResponse
-   SEMWriteResponse
+namespace outgoing {
+    class SEMMessage(primary) {
+        message: SEMMessageType
+    }
+    union SEMMessageType {
+       SEMReadResponse
+       SEMWriteResponse
+    }
+    class SearchResult {
+        score: float
+        document: [Tuple]
+    }
+    class SEMReadResponse {
+        results: [SearchResult]
+    }
+
+    enum WriteResult {
+        SUCCESS
+        FAILURE
+    }
+    class SEMWriteResponse {
+        writeResult: WriteResult
+    }
+    class Tuple {
+        key: string
+        value: string
+    }
 }
 
-class SEMQueryReadRequest {
-   field: string
-   query: string
-   minimumScore: float
-   limit: int
-}
 
-class SEMPhraseReadRequest {
-    terms: [string]
-    field: string
-    inOrder: boolean
-    slop: int
-    minimumScore: float
-    limit: int
-}
-
-class SearchResult {
-    score: float
-    document: [Tuple]
-}
-
-class SEMReadResponse {
-    results: [SearchResult]
-}
-
-enum WriteResult {
-    SUCCESS
-    FAILURE
-}
-
-class SEMWriteRequest {
-   document: [Tuple]
-}
-
-class Tuple {
-    key: string
-    value: string
-}
-
-class SEMWriteResponse {
-    writeResult: WriteResult
-}
 

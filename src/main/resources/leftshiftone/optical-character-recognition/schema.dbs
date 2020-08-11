@@ -1,17 +1,11 @@
-class OCRMessage(primary) {
-    message: OCRMessageType
+namespace incoming {
+    class Request {
+        image: [byte]
+    }
 }
-
-union OCRMessageType {
-    OCRRequest
-    OCRResponse
-}
-
-class OCRRequest {
-    image: [byte]
-}
-
-class OCRResponse {
-  text: string
-  confidence: int
+namespace outgoing {
+    class Response {
+      text: string
+      confidence: int
+    }
 }

@@ -1,0 +1,12 @@
+{
+    ":type": 1,
+    "message":
+            {
+                "terms": ["term1", "term2"],
+                "field": "fieldValue",
+                "inOrder": false,
+                "slop": 1,
+                "minimumScore": 0.11,
+                "limit": 5
+            }
+}

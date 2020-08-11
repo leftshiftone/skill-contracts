@@ -1,31 +1,29 @@
-class DEPMessage(primary) {
-    message: DEPMessageType
+namespace incoming {
+    class Request {
+        text: string
+    }
 }
 
-union DEPMessageType {
-    DEPRequest
-    DEPResponse
+namespace outgoing {
+    class Response {
+      dep: [DEPResult]
+    }
+
+    class DEPResult {
+        lang: string
+        relation: string
+        source: string
+        source_pos: string
+        source_index: int
+        source_tag: string
+        source_base: string
+        target: string
+        target_pos: string
+        target_index: int
+        target_tag: string
+        target_base: string
+    }
 }
 
-class DEPRequest {
-    text: string
-}
 
-class DEPResponse {
-  dep: [DEPResult]
-}
 
-class DEPResult {
-    lang: string
-    relation: string
-    source: string
-    source_pos: string
-    source_index: int
-    source_tag: string
-    source_base: string
-    target: string
-    target_pos: string
-    target_index: int
-    target_tag: string
-    target_base: string
-}

@@ -1,19 +1,13 @@
-class SampleMessage (primary) {
-    message: SampleMessageType
+namespace incoming {
+    class Request {
+        imageContent: string
+        mimeType: string
+    }
 }
-
-union SampleMessageType {
-    SampleRequest
-    SampleResponse
-}
-
-class SampleRequest {
-    imageContent: string
-    mimeType: string
-}
-
-class SampleResponse {
-    rnd: int
-    imageContent: string
-    mimeType: string
+namespace outgoing {
+    class Response {
+        rnd: int
+        imageContent: string
+        mimeType: string
+    }
 }

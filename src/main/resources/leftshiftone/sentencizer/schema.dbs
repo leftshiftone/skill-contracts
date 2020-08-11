@@ -1,16 +1,11 @@
-class SentencizerMessage(primary) {
-    message: SentencizerMessageType
+namespace incoming {
+    class Request {
+        text: string
+    }
 }
 
-union SentencizerMessageType {
-    SentencizerResponse
-    SentencizerRequest
-}
-
-class SentencizerRequest {
-    text: string
-}
-
-class SentencizerResponse {
-  tokens: [string]
+namespace outgoing {
+    class Response {
+      tokens: [string]
+    }
 }

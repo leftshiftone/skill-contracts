@@ -1,17 +1,12 @@
-class EchoMessage (primary) {
-    message: EchoMessageType
+namespace incoming {
+    class Request {
+        request: string
+    }
 }
 
-union EchoMessageType {
-    EchoRequest
-    EchoResponse
-}
-
-class EchoRequest {
-    request: string
-}
-
-class EchoResponse {
-   rnd: int
-   response: string
+namespace outgoing {
+    class Response {
+       rnd: int
+       response: string
+    }
 }
