@@ -1,20 +1,14 @@
-class NEMMessage(primary) {
-    message: NEMMessageType
+namespace incoming {
+    class Request {
+        text: string
+    }
 }
+namespace outgoing {
+    class Response {
+      nem: [NEMResult]
+    }
 
-union NEMMessageType {
-    NEMResponse
-    NEMRequest
-}
-
-class NEMResponse {
-  nem: [NEMResult]
-}
-
-class NEMResult {
-    text: string
-}
-
-class NEMRequest {
-    text: string
+    class NEMResult {
+        text: string
+    }
 }

@@ -1,29 +1,22 @@
-class DatabaseConnectorMessage(primary) {
-    message: DatabaseConnectorMessageType
+namespace incoming {
+    class Request {
+        sql: string
+    }
 }
+namespace outgoing {
+    class Response {
+        result: ResultType
+    }
+    union ResultType {
+        ResultSet
+        Result
+    }
 
-union DatabaseConnectorMessageType {
-    DatabaseConnectorRequest
-    DatabaseConnectorResponse
-}
+    class ResultSet {
+        row: map
+    }
 
-class DatabaseConnectorRequest {
-    sql: string
-}
-
-union ResultType {
-    ResultSet
-    Result
-}
-
-class ResultSet {
-    row: map
-}
-
-class Result {
-    result: string
-}
-
-class DatabaseConnectorResponse {
-    result: ResultType
+    class Result {
+        result: string
+    }
 }

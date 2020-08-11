@@ -1,7 +1,6 @@
 import com.amazonaws.auth.AWSCredentialsProviderChain
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
-include 'leftshiftone'
 rootProject.name = rootProjectName
 
 buildscript {

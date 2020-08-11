@@ -11,38 +11,48 @@ import java.io.InputStreamReader
 class ValidationTest {
 
     companion object {
-        @JvmStatic
-        val INCOMING_NS = "incoming"
-        @JvmStatic
-        val OUTGOING_NS = "outgoing"
+        const val INCOMING_NS = "incoming"
+        const val OUTGOING_NS = "outgoing"
     }
 
     @TestFactory
-    fun `Test`() = listOf(
-            TestCase("ner", "/leftshiftone/ner"),
-            TestCase("ner-box", "/leftshiftone/ner-box")
-    ).map {testCase ->
-        DynamicTest.dynamicTest("TestCase: ${testCase.name}, path: ${testCase.path} ") {
-            val schema= "schema.dbs"
-            val engine = Dynabuffers.parse(ValidationTest::class.java.getResourceAsStream("${testCase.path}${File.separator}$schema"))
-            testIncoming(engine, testCase.path)
-            testOutgoing(engine, testCase.path)
-        }
-    }
+    fun `Test`() = File(ValidationTest::class.java.getResource("/leftshiftone").path).listFiles()
+                .filter { it.isDirectory }
+                .filter { File("$it${File.separator}schema.dbs").exists() }
+                .filter { File("$it${File.separator}__validation__").exists() }
+                .map {
+                    val testCase1 = TestCase(it.name, it.path)
+                    DynamicTest.dynamicTest("TestCase: ${testCase1.name}, path: ${testCase1.path} ") {
+                        val schema = "schema.dbs"
+                        val engine = Dynabuffers.parse(File("${testCase1.path}${File.separator}$schema").inputStream())
+                        testIncoming(engine, testCase1.path)
+                        testOutgoing(engine, testCase1.path)
+                    }
+                }
+
 
     fun testIncoming(engine: DynabuffersEngine, testCasePath: String){
-        val messageAsString=ValidationTest::class.java.getResourceAsStream("${testCasePath}${File.separator}__validation__${File.separator}valid_request.data").use{
-            BufferedReader(InputStreamReader(it)).readLines().joinToString(" ")
-        }
-        testSerialization(engine, messageAsString, INCOMING_NS)
+        readCaseFiles("${testCasePath}${File.separator}__validation__","valid_request")
+                .map { messageAsString-> testSerialization(engine, messageAsString, INCOMING_NS) }
+
     }
 
     fun testOutgoing(engine: DynabuffersEngine, testCasePath: String){
-        val messageAsString=ValidationTest::class.java.getResourceAsStream("${testCasePath}${File.separator}__validation__${File.separator}valid_response.data").use{
-            BufferedReader(InputStreamReader(it)).readLines().joinToString(" ")
-        }
-        testSerialization(engine, messageAsString, OUTGOING_NS)
+        readCaseFiles("${testCasePath}${File.separator}__validation__","valid_response")
+                .map { messageAsString-> testSerialization(engine, messageAsString, OUTGOING_NS) }
     }
+
+    fun readCaseFiles(path: String, fileNamePattern: String) = File("${path}")
+            .listFiles()
+            .filter { it.isFile }
+            .filter { it.name.contains(fileNamePattern) }
+            .filter { it.name.endsWith("data") }
+            .map {
+                it.inputStream()
+                .use {
+                    BufferedReader(InputStreamReader(it)).readLines().joinToString(" ")
+                }
+            }.toList()
 
     fun testSerialization(engine: DynabuffersEngine, message: String, namespace: String){
         val messageMap = preprocess(ObjectMapper().readValue(message, Map::class.java))
@@ -52,11 +62,14 @@ class ValidationTest {
     }
 
     fun assertMap(actualMap: Map<String, Any?>, expectedMap: Map<String, Any?>) {
-        actualMap.map { entry ->
-            assertThat(expectedMap).containsKey(entry.key)
-            assertThat(expectedMap.get(entry.key)).isEqualTo(entry.value)
+        actualMap
+                .filter {it.key == ":type"}
+                .map { entry ->
+                assertThat(expectedMap).containsKey(entry.key)
+                assertThat(expectedMap.get(entry.key)).isEqualTo(entry.value)
+            }
         }
-    }
+
 
 
 

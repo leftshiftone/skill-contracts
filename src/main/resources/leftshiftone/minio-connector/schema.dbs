@@ -1,48 +1,73 @@
-class MinioConnectorMessage(primary) {
-    message: MinioConnectorMessageType
+namespace incoming {
+
+    class Message(primary) {
+        message: MessageType
+    }
+    union MessageType {
+        ReadRequest
+        WriteRequest
+    }
+    class ReadRequest {
+        bucketName: string
+        name: string
+    }
+    class WriteRequest {
+        bucketName: string
+        override: boolean = false
+        file: TransferObject
+    }
+    union TransferObject {
+        BytesTransferObject
+        MapTransferObject
+    }
+
+    class BytesTransferObject {
+        name: string
+        content: [byte]
+    }
+
+    class MapTransferObject {
+        name: string
+        content: map
+    }
 }
 
-union MinioConnectorMessageType {
-    MinioConnectorReadRequest
-    MinioConnectorWriteRequest
-    MinioConnectorReadResponse
-    MinioConnectorWriteResponse
+
+namespace outgoing {
+
+    class Message(primary) {
+        message: MessageType
+    }
+
+    union MessageType {
+        ReadResponse
+        WriteResponse
+    }
+
+    class WriteResponse {
+        result: Status
+        fileName: string
+    }
+
+    class ReadResponse {
+        result: Status
+        file: TransferObject?
+    }
+    union TransferObject {
+        BytesTransferObject
+        MapTransferObject
+    }
+
+    class BytesTransferObject {
+        name: string
+        content: [byte]
+    }
+
+    class MapTransferObject {
+        name: string
+        content: map
+    }
+    enum Status { DONE FAILED }
+
 }
 
-class MinioConnectorWriteRequest {
-    bucketName: string
-    override: boolean = false
-    file: TransferObject
-}
-
-class MinioConnectorReadRequest {
-    bucketName: string
-    name: string
-}
-
-union TransferObject {
-    BytesTransferObject
-    MapTransferObject
-}
-
-class BytesTransferObject {
-    name: string
-    content: [byte]
-}
-
-class MapTransferObject {
-    name: string
-    content: map
-}
-
-class MinioConnectorWriteResponse {
-    result: Status
-    fileName: string
-}
-
-class MinioConnectorReadResponse {
-    result: Status
-    file: TransferObject?
-}
-
-enum Status { DONE FAILED }
