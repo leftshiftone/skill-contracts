@@ -1,0 +1,40 @@
+
+namespace incoming {
+    class Request {
+        tokens: [string]
+    }
+}
+namespace outgoing {
+    class Response {
+        nodes: [LEXNNode]
+    }
+
+    class LEXNNode {
+        lemma: string
+        labels: [string]
+        outgoing: [Edge]
+        incoming: [Edge]
+        attributes: [Tuple]
+    }
+
+    class Tuple {
+        key: string
+        value: string
+    }
+
+    class Edge {
+        type: EdgeType
+        node: LEXNNodeRef
+        attributes: [Tuple]
+    }
+
+    class LEXNNodeRef {
+        name: string
+    }
+
+    enum EdgeType  {
+        FLEXION COLLOCATION HYPERONYM MERONYM SYNONYM ABBREVIATION CAUSATION DIALECT GENDER
+    }
+}
+
+

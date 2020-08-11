@@ -1,0 +1,13 @@
+namespace incoming {
+    class Request {
+        imageContent: string
+        mimeType: string
+    }
+}
+namespace outgoing {
+    class Response {
+        rnd: int
+        imageContent: string
+        mimeType: string
+    }
+}

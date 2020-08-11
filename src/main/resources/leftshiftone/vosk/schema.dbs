@@ -1,0 +1,10 @@
+namespace incoming {
+    class Request {
+        message: string
+    }
+}
+namespace outgoing {
+    class Response {
+      message: string
+    }
+}

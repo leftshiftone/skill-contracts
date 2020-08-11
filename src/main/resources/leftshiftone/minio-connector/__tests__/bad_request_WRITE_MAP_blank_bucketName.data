@@ -1,0 +1,14 @@
+{
+    "message":  {
+                "bucketName": "    ",
+                "file": {
+                            ":type": 1,
+                            "name": "objectName",
+                            "content":
+                                    {
+                                        "aKey": "aValue",
+                                        "bKey": "bValue"
+                                    }
+                        }
+                }
+}

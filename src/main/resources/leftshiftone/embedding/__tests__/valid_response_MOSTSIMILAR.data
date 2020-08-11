@@ -1,0 +1,12 @@
+{
+    ":type": 1,
+    "message":
+            {
+                "similarities": [
+                                    {
+                                        "text": "mostSimilarTextValue",
+                                        "probability": 0.8
+                                    }
+                                ]
+            }
+}

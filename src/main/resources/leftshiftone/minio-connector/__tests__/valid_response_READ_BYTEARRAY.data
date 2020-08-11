@@ -1,0 +1,12 @@
+{
+    "message":  {
+                "result": "DONE",
+                "file":
+                        {
+                            ":type": 0,
+                            "name": "aFileName",
+                            "content": [12,65,89,102]
+                        }
+                }
+
+}

@@ -1,0 +1,24 @@
+namespace incoming {
+    class Request {
+        @NotBlank
+        sql: string
+    }
+}
+namespace outgoing {
+    class Response {
+        result: ResultType
+    }
+    union ResultType {
+        ResultSet
+        Result
+    }
+
+    class ResultSet {
+        row: map
+    }
+
+    class Result {
+        @NotBlank
+        result: string
+    }
+}

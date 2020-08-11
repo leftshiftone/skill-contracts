@@ -1,0 +1,29 @@
+namespace incoming {
+    class Request {
+        @NotBlank
+        text: string
+        x1: float
+        y1: float
+        x2: float
+        y2: float
+        size: float
+        font: string
+    }
+}
+namespace outgoing {
+    class Response {
+        nem: [NEMResult]
+    }
+
+    class NEMResult {
+        @NotBlank
+        text: string
+        x1: float
+        y1: float
+        x2: float
+        y2: float
+        size: float
+        font: string
+    }
+
+}

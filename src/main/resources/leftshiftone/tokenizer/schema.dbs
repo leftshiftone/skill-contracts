@@ -1,0 +1,13 @@
+namespace incoming {
+    class Request {
+        text: string
+    }
+}
+
+namespace outgoing {
+    class Response {
+      tokens: [string]
+    }
+}
+
+

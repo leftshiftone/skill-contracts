@@ -1,0 +1,8 @@
+{
+    ":type": 1,
+    "message":
+            {
+                "text1": "mostSimilarText1Value",
+                "text2": "mostSimilarText2Value"
+            }
+}

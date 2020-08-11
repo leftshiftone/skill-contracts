@@ -1,0 +1,11 @@
+namespace incoming {
+    class Request {
+        image: [byte]
+    }
+}
+namespace outgoing {
+    class Response {
+      text: string
+      confidence: int
+    }
+}
