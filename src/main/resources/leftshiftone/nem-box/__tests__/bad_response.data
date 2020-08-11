@@ -1,0 +1,28 @@
+{
+    "nem": [
+            {
+                "text": "text in response",
+                "start_char": 1,
+                "end_char": 5,
+                "label": "label in response",
+                "x1": 1.0,
+                "y1": 2.0,
+                "x2": 3.0,
+                "y2": 4.0,
+                "size": 5.0,
+                "font": "ariel"
+            },
+            {
+                "text": "    ",
+                "start_char": 2,
+                "end_char": 10,
+                "label": "label in response2",
+                 "x1": 1.0,
+                 "y1": 2.0,
+                 "x2": 3.0,
+                 "y2": 4.0,
+                 "size": 5.0,
+                 "font": "ariel"
+            }
+        ]
+}

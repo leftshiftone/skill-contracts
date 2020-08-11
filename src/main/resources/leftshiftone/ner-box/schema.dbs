@@ -1,5 +1,6 @@
 namespace incoming {
     class Request {
+        @NotBlank
         text: string
         x1: float
         y1: float
@@ -16,6 +17,7 @@ namespace outgoing {
     }
 
     class NERResult {
+        @NotBlank
         text: string
         start_char: int
         end_char: int

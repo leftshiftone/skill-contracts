@@ -1,6 +1,6 @@
 {
     "message":  {
-                "bucketName": "SomeBucket",
+                "bucketName": "    ",
                 "file": {
                             ":type": 1,
                             "name": "objectName",

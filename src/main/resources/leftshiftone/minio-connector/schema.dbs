@@ -8,10 +8,13 @@ namespace incoming {
         WriteRequest
     }
     class ReadRequest {
+        @NotBlank
         bucketName: string
+        @NotBlank
         name: string
     }
     class WriteRequest {
+        @NotBlank
         bucketName: string
         override: boolean = false
         file: TransferObject
@@ -27,6 +30,7 @@ namespace incoming {
     }
 
     class MapTransferObject {
+        @NotBlank
         name: string
         content: map
     }

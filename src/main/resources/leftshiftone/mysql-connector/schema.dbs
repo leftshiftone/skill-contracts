@@ -1,5 +1,6 @@
 namespace incoming {
     class Request {
+        @NotBlank
         sql: string
     }
 }
@@ -17,6 +18,7 @@ namespace outgoing {
     }
 
     class Result {
+        @NotBlank
         result: string
     }
 }

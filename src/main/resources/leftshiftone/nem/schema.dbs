@@ -1,5 +1,6 @@
 namespace incoming {
     class Request {
+        @NotBlank
         text: string
     }
 }
@@ -9,6 +10,7 @@ namespace outgoing {
     }
 
     class NEMResult {
+        @NotBlank
         text: string
     }
 }

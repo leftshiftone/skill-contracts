@@ -1,5 +1,6 @@
 namespace incoming {
     class Request {
+        @NotBlank
         text: string
         x1: float
         y1: float
@@ -15,6 +16,7 @@ namespace outgoing {
     }
 
     class NEMResult {
+        @NotBlank
         text: string
         x1: float
         y1: float

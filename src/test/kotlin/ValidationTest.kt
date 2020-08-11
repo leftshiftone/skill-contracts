@@ -1,12 +1,14 @@
 import com.fasterxml.jackson.databind.ObjectMapper
 import dynabuffers.Dynabuffers
 import dynabuffers.DynabuffersEngine
+import dynabuffers.exception.DynabuffersException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
+import java.lang.Exception
 
 class ValidationTest {
 
@@ -17,10 +19,11 @@ class ValidationTest {
     }
 
     @TestFactory
-    fun `Test`() = File(ValidationTest::class.java.getResource("/leftshiftone").path).listFiles()
+    fun `Verify valid requests`() = File(ValidationTest::class.java.getResource("/leftshiftone").path).listFiles()
                 .filter { it.isDirectory }
                 .filter { File("$it${File.separator}schema.dbs").exists() }
                 .filter { File("$it${File.separator}${TEST_FOLDER_NAME}").exists() }
+                .filter { File("$it${File.separator}${TEST_FOLDER_NAME}").listFiles().filter { it.name.startsWith("valid_") }.count()> 0 }
                 .map {
                     val testCase1 = TestCase(it.name, it.path)
                     DynamicTest.dynamicTest("TestCase: ${testCase1.name}, path: ${testCase1.path} ") {
@@ -31,19 +34,41 @@ class ValidationTest {
                     }
                 }
 
+    @TestFactory
+    fun `validate bad requests`() = File(ValidationTest::class.java.getResource("/leftshiftone").path).listFiles()
+            .filter { it.isDirectory }
+            .filter { File("$it${File.separator}schema.dbs").exists() }
+            .filter { File("$it${File.separator}${TEST_FOLDER_NAME}").exists() }
+            .filter { File("$it${File.separator}${TEST_FOLDER_NAME}").listFiles().filter { it.name.startsWith("bad_") }.count()> 0 }
+            .map {
+                val testCase = TestCase(it.name, it.path)
+                DynamicTest.dynamicTest("TestCase: ${testCase.name}, path: ${testCase.path} ") {
+                    val schema = "schema.dbs"
+                    val engine = Dynabuffers.parse(File("${testCase.path}${File.separator}$schema").inputStream())
+                    assertDynabuffersException(engine, testCase.path,"bad_request", INCOMING_NS)
+                    assertDynabuffersException(engine, testCase.path,"bad_response", OUTGOING_NS)
+                }
+            }
 
-    fun testIncoming(engine: DynabuffersEngine, testCasePath: String){
-        readCaseFiles("${testCasePath}${File.separator}${TEST_FOLDER_NAME}","valid_request")
-                .map { messageAsString-> testSerialization(engine, messageAsString, INCOMING_NS) }
+
+    fun assertDynabuffersException(engine: DynabuffersEngine, testCasePath: String, fileNamePrefix: String, namespace: String){
+        try{
+            testNamespaceSerialization(engine, testCasePath ,fileNamePrefix, namespace)
+            assertThat(true).isFalse()
+        }catch (ex: Exception){
+            assertThat(ex).isExactlyInstanceOf(DynabuffersException::class.java)
+        }
 
     }
+    fun testNamespaceSerialization(engine: DynabuffersEngine, testCasePath: String, fileNamePrefix: String, namespace: String){
+        readCaseFiles("${testCasePath}${File.separator}${TEST_FOLDER_NAME}",fileNamePrefix)
+                .map { messageAsString-> testSerialization(engine, messageAsString, namespace) }
 
-    fun testOutgoing(engine: DynabuffersEngine, testCasePath: String){
-        readCaseFiles("${testCasePath}${File.separator}${TEST_FOLDER_NAME}","valid_response")
-                .map { messageAsString-> testSerialization(engine, messageAsString, OUTGOING_NS) }
     }
+    fun testIncoming(engine: DynabuffersEngine, testCasePath: String, fileNamePrefix: String="valid_request") = testNamespaceSerialization(engine,testCasePath, fileNamePrefix, INCOMING_NS)
+    fun testOutgoing(engine: DynabuffersEngine, testCasePath: String,fileNamePrefix: String="valid_response") = testNamespaceSerialization(engine,testCasePath, fileNamePrefix, OUTGOING_NS)
 
-    fun readCaseFiles(path: String, fileNamePattern: String) = File("${path}")
+    fun readCaseFiles(path: String, fileNamePattern: String) = File(path)
             .listFiles()
             .filter { it.isFile }
             .filter { it.name.contains(fileNamePattern) }

@@ -1,0 +1,16 @@
+{
+    "ner": [
+            {
+                "text": "     ",
+                "start_char": 1,
+                "end_char": 5,
+                "label": "label in response"
+            },
+            {
+                "text": "text in response1",
+                "start_char": 2,
+                "end_char": 10,
+                "label": "label in response2"
+            }
+        ]
+}
