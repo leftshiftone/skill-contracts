@@ -1,0 +1,77 @@
+namespace incoming {
+
+    class Message(primary) {
+        message: MessageType
+    }
+    union MessageType {
+        ReadRequest
+        WriteRequest
+    }
+    class ReadRequest {
+        @NotBlank
+        bucketName: string
+        @NotBlank
+        name: string
+    }
+    class WriteRequest {
+        @NotBlank
+        bucketName: string
+        override: boolean = false
+        file: TransferObject
+    }
+    union TransferObject {
+        BytesTransferObject
+        MapTransferObject
+    }
+
+    class BytesTransferObject {
+        name: string
+        content: [byte]
+    }
+
+    class MapTransferObject {
+        @NotBlank
+        name: string
+        content: map
+    }
+}
+
+
+namespace outgoing {
+
+    class Message(primary) {
+        message: MessageType
+    }
+
+    union MessageType {
+        ReadResponse
+        WriteResponse
+    }
+
+    class WriteResponse {
+        result: Status
+        fileName: string
+    }
+
+    class ReadResponse {
+        result: Status
+        file: TransferObject?
+    }
+    union TransferObject {
+        BytesTransferObject
+        MapTransferObject
+    }
+
+    class BytesTransferObject {
+        name: string
+        content: [byte]
+    }
+
+    class MapTransferObject {
+        name: string
+        content: map
+    }
+    enum Status { DONE FAILED }
+
+}
+

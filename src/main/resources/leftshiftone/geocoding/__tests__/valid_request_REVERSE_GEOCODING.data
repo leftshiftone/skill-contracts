@@ -1,0 +1,8 @@
+{
+    ":type": 0,
+    "message":
+            {
+                "latitude": 12.2,
+                "longitude": 21.1
+            }
+}

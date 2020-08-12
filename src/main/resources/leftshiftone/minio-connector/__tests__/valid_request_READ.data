@@ -1,0 +1,6 @@
+{
+    "message":  {
+                "bucketName": "SomeBucket",
+                "name": "SomeName"
+                }
+}

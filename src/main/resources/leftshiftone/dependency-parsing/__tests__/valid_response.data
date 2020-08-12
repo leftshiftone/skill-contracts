@@ -1,0 +1,33 @@
+{
+    "dep":
+            [
+                {
+                    "lang": "langValue",
+                    "relation": "relationValue",
+                    "source": "sourceValue",
+                    "source_pos": "source_posValue",
+                    "source_index": 1,
+                    "source_tag": "source_tagValue",
+                    "source_base": "source_baseValue",
+                    "target": "targetValue",
+                    "target_pos": "target_posValue",
+                    "target_index": 2,
+                    "target_tag": "target_tagValue",
+                    "target_base": "target_baseValue"
+                },
+                {
+                    "lang": "langValue1",
+                    "relation": "relationValue1",
+                    "source": "sourceValue1",
+                    "source_pos": "source_posValue1",
+                    "source_index": 11,
+                    "source_tag": "source_tagValue1",
+                    "source_base": "source_baseValue1",
+                    "target": "targetValue1",
+                    "target_pos": "target_posValue1",
+                    "target_index": 21,
+                    "target_tag": "target_tagValue1",
+                    "target_base": "target_baseValue1"
+                }
+            ]
+}

@@ -1,0 +1,12 @@
+{
+    "response": [
+                    {
+                        "probability1": 2.5,
+                        "probability2": 3.2
+                    },
+                    {
+                        "probability1": 5.2,
+                        "probability2": 2.3
+                    }
+            ]
+}

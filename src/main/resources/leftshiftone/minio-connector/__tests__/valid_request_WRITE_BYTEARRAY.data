@@ -1,0 +1,11 @@
+{
+    "message":  {
+                "bucketName": "SomeBucket",
+                "file": {
+                            ":type": 0,
+                            "name": "filename",
+                            "content": [81,105]
+
+                        }
+                }
+}

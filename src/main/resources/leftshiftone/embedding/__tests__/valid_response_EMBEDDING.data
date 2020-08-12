@@ -1,0 +1,7 @@
+{
+    ":type": 0,
+    "message":
+            {
+                "embedding": [0.2, 3.5 ]
+            }
+}

@@ -1,0 +1,21 @@
+namespace incoming{
+    class Request {
+        @NotBlank
+        text: string
+    }
+}
+
+namespace outgoing {
+    class Response {
+      ner: [NERResult]
+    }
+
+    class NERResult {
+        @NotBlank
+        text: string
+        start_char: int
+        end_char: int
+        label: string
+    }
+}
+

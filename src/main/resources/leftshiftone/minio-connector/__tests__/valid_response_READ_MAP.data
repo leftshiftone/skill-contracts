@@ -1,0 +1,16 @@
+{
+    "message":  {
+                "result": "DONE",
+                "file":
+                        {
+                            ":type": 1,
+                            "name": "aFileName",
+                            "content":
+                                        {
+                                            "aKey" : "aValue",
+                                            "bKey" : "bValue"
+                                        }
+                        }
+                }
+
+}

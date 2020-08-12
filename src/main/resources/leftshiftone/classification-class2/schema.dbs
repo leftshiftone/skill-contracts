@@ -1,0 +1,25 @@
+namespace incoming {
+    class Request {
+        vectors:[Vector];
+    }
+    class Vector {
+        bytes:[byte];
+    }
+}
+
+namespace outgoing {
+    class Response {
+        response:[Probability];
+    }
+    class Probability {
+      probability1:float;
+      probability2:float;
+    }
+}
+
+
+
+
+
+
+

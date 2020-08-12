@@ -1,0 +1,63 @@
+{
+    "nodes":
+            [
+                {
+                    "lemma" : "lemmaValue",
+                    "labels": ["label1","label2"],
+                    "outgoing":
+                            [
+                                {
+                                    "type": "FLEXION",
+                                    "node":
+                                            {
+                                                "name": "nodeNameFLEXION"
+                                            },
+                                    "attributes":
+                                                [
+                                                    {
+                                                        "key": "aKey",
+                                                        "value": "aValue"
+                                                    },
+                                                    {
+                                                        "key": "bKey",
+                                                        "value": "bValue"
+                                                    }
+                                                ]
+                                }
+                            ],
+                    "incoming":
+                            [
+                                {
+                                    "type": "COLLOCATION",
+                                    "node":
+                                            {
+                                                "name": "nodeNameCOLLOCATION"
+                                            },
+                                    "attributes":
+                                                [
+                                                    {
+                                                        "key": "aKey1",
+                                                        "value": "aValue1"
+                                                    },
+                                                    {
+                                                        "key": "bKey1",
+                                                        "value": "bValue1"
+                                                    }
+                                                ]
+                                }
+                            ],
+                    "attributes":
+                                [
+                                    {
+                                        "key": "aKey11",
+                                        "value": "aValue11"
+                                    },
+                                    {
+                                        "key": "bKey11",
+                                        "value": "bValue11"
+                                    }
+                                ]
+
+                }
+            ]
+}
