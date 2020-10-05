@@ -1,0 +1,28 @@
+namespace incoming {
+    class Request {
+        text: string
+        showCandidates: boolean = false
+        threshold: float
+    }
+}
+namespace outgoing {
+    union Response {
+        Match
+        NoMatch
+    }
+    class Match {
+        reference: string
+        score: float
+    }
+    class NoMatch {
+        text: string
+        candidates: [Candidate]
+    }
+    class Candidate {
+        reference: string
+        utterance: string
+        score: float
+    }
+}
+
+
