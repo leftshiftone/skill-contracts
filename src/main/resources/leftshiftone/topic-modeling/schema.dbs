@@ -1,0 +1,35 @@
+namespace incoming {
+    namespace OneVsAllStrategy {
+        class Request {
+            @NotBlank
+            text: string
+            topics: string[]
+        }
+    }
+    namespace HypothesisStrategy {
+        class Request {
+            @NotBlank
+            text: string
+            topic: string
+        }
+    }
+}
+
+namespace outgoing {
+    namespace OneVsAllStrategy {
+        class Response {
+            @NotNull
+            props: Probability[]
+        }
+        class Probability {
+            name: string
+            prob: float
+        }
+    }
+    namespace HypothesisStrategy {
+        class Response {
+            @NotNull
+            prop: float
+        }
+    }
+}
