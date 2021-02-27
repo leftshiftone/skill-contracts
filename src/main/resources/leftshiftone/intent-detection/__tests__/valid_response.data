@@ -1,0 +1,25 @@
+{
+    "matches": [
+        {
+            "identityId": "00000000-0000-0000-0000-000000000000",
+            "intentId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+            "score": 1.0,
+            "language": "en",
+            "utterance": "I have a dream!"
+        },
+        {
+            "identityId": "00000000-0000-0000-0000-000000000000",
+            "intentId": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+            "score": 0.95,
+            "language": "en",
+            "utterance": "I had a dream."
+        },
+        {
+            "identityId": "00000000-0000-0000-0000-000000000000",
+            "intentId": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+            "score": 0.0,
+            "language": "en",
+            "utterance": "Is this a dream?"
+        }
+    ]
+}

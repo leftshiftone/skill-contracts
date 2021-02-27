@@ -1,28 +1,21 @@
 namespace incoming {
     class Request {
+        identityIds: [string]
         text: string
-        showCandidates: boolean = false
-        threshold: float
+        language: string
+        minScore: float
+        noOfMatches: int = 1
     }
 }
 namespace outgoing {
-    union Response {
-        Match
-        NoMatch
+    class Response {
+        matches: [Match]
     }
     class Match {
-        reference: string
+        identityId: string
+        intentId: string
         score: float
-    }
-    class NoMatch {
-        text: string
-        candidates: [Candidate]
-    }
-    class Candidate {
-        reference: string
+        language: string
         utterance: string
-        score: float
     }
 }
-
-

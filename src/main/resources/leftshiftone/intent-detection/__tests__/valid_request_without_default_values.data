@@ -6,6 +6,5 @@
     ],
     "text": "I have a dream",
     "language": "en",
-    "minScore": 0.85,
-    "noOfMatches": 10
+    "minScore": 0.85
 }
