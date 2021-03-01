@@ -2,7 +2,7 @@ namespace incoming {
     class Request {
         text: string
         identityIds: [string]
-        language: string
+        language: [string]
         minScore: float
         noOfMatches: int = 1
     }
