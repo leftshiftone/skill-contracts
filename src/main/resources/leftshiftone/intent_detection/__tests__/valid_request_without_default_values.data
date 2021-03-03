@@ -5,6 +5,6 @@
         "22222222-2222-2222-2222-222222222222"
     ],
     "text": "I have a dream",
-    "language": ["en"],
+    "languages": ["en"],
     "minScore": 0.85
 }
