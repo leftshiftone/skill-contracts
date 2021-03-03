@@ -1,13 +1,16 @@
 namespace incoming {
+
     class Request {
         text: string
         identityIds: [string]
-        language: [string]
+        languages: [string]
         minScore: float
         noOfMatches: int = 1
     }
 }
+
 namespace outgoing {
+
     class Response {
         matches: [Match]
     }
