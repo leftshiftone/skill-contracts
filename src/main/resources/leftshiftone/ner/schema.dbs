@@ -2,6 +2,7 @@ namespace incoming{
     class Request {
         @NotBlank
         text: string
+        language: string?
     }
 }
 
