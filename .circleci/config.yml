@@ -7,6 +7,10 @@ webhook-failed: &webhook-failed
   when: on_fail
   command: |
     curl $WEBHOOK_BUILD_URL\?flow\=circleci-completed\&status\=FAILED -d '{"repository":"'"$CIRCLE_PROJECT_REPONAME"'","branch":"'"$CIRCLE_BRANCH"'","build_number":"'"$CIRCLE_BUILD_NUM"'","build_url":"'"$CIRCLE_BUILD_URL"'"}' -H "Content-Type: application/json" -X POST -i || true
+prepare-image: &prepare-image
+  name: Prepare image
+  command: apt-get update && apt-get install -y openjdk-8-jdk && pip install --no-cache-dir "poetry==1.0.0" && curl --insecure -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 --no-same-owner && rm -f "node-v$NODE_VERSION-linux-x64.tar.xz" && ln -s /usr/local/bin/node /usr/local/bin/nodejs && npm install -g yarn
+
 version: 2
 jobs:
   webhook-completed:
@@ -60,6 +64,8 @@ jobs:
     steps:
       - run:
           <<: *webhook-created
+      - run:
+          <<: *prepare-image
       - add_ssh_keys:
           fingerprints:
             - "dc:17:c5:39:f0:6a:ac:48:bf:21:d4:82:7c:28:95:b2"
