@@ -20,6 +20,7 @@ buildscript {
         mockkVersion = "1.9.3"
     }
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -66,6 +67,7 @@ asteriaDependency {
 
 
 repositories {
+    jcenter()
     mavenCentral()
     maven {
         credentials(AwsCredentials) {
