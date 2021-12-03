@@ -20,8 +20,8 @@ buildscript {
         mockkVersion = "1.9.3"
     }
     repositories {
-        jcenter()
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "one.leftshift.asteria:asteria-dependency:latest.release"
@@ -67,8 +67,8 @@ asteriaDependency {
 
 
 repositories {
-    jcenter()
     mavenCentral()
+    jcenter()
     maven {
         credentials(AwsCredentials) {
             accessKey gradle.awsAccessKey
