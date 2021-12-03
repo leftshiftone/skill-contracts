@@ -31,7 +31,7 @@ jobs:
       - run: echo $OSSRH_SIGN_KEY_CONTENT | base64 --decode > "$OSSRH_SIGN_KEY_PATH"
       - run:
           name: Build all projects
-          command: ./gradlew clean build publish -x bintrayUpload --stacktrace
+          command: ./gradlew clean build publish --stacktrace
       - run:
           <<: *webhook-failed
 
