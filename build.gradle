@@ -31,17 +31,27 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
     }
 }
 
 apply plugin: "kotlin"
 apply plugin: "java"
-apply plugin: "com.jfrog.bintray"
+apply plugin: "maven-publish"
+apply plugin: "signing"
+apply plugin: "io.codearte.nexus-staging"
 apply plugin: "one.leftshift.asteria-email"
 apply plugin: "one.leftshift.asteria-publish"
 apply plugin: "one.leftshift.asteria-dependency"
 apply plugin: "one.leftshift.asteria-version"
+
+nexusStaging {
+    packageGroup = "one.leftshift"
+    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+    stagingProfileId = System.getenv("OSSRH_STAGING_PROFILE_ID")
+    username = System.getenv("OSSRH_LOGIN_NAME")
+    password = System.getenv("OSSRH_LOGIN_PASSWORD")
+}
 
 asteriaEmail {
     smtpHost = System.getenv("ASTERIA_EMAIL_SMTP_HOST")
@@ -125,12 +135,21 @@ tasks.withType(Test) { testTask ->
 }
 
 
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier "sources"
+}
+artifacts {
+    archives sourcesJar
+}
+
 asteriaPublish {
     enableBranchSnapshotRepositories = true
 }
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        release(MavenPublication) {
             artifactId = project.name
             from components.java
             artifact sourceJar
@@ -160,30 +179,21 @@ publishing {
             }
         }
     }
-}
-
-bintray {
-    logger.info "Bintray deploy with user [${System.getenv('BINTRAY_USER')}] while working on ${project.name}"
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publish = true
-    override = true
-    pkg {
-        repo = "skill-contracts"
-        name = "${project.group}.${project.name}"
-        userOrg = "leftshiftone"
-        licenses = ["Apache License 2.0"]
-        vcsUrl = "https://github.com/leftshiftone/skill-contracts.git"
-        publications = ["mavenJava"]
+    repositories {
+        maven {
+            name = "sonatype"
+            url = version.toString().endsWith("SNAPSHOT") ? "https://s01.oss.sonatype.org/content/repositories/snapshots" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username System.getenv("OSSRH_LOGIN_NAME")
+                password System.getenv("OSSRH_LOGIN_PASSWORD")
+            }
+        }
     }
 }
 
-if (System.getenv("CI")) {
-    publish.finalizedBy bintrayUpload
-}
-
-if (System.getenv("CI") == null || System.getenv("CI") != "true") {
-    tasks.release.dependsOn tasks.generateLock
-    tasks.release.dependsOn tasks.saveLock
-    tasks.release.dependsOn tasks.persistDependencyLock
+ext."signing.keyId" = System.getenv("OSSRH_SIGN_KEY_ID")
+ext."signing.password" = System.getenv("OSSRH_SIGN_KEY_PASSWORD")
+ext."signing.secretKeyRingFile" = System.getenv("OSSRH_SIGN_KEY_PATH")
+signing {
+    sign publishing.publications
 }
