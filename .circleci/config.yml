@@ -73,7 +73,7 @@ jobs:
       - run: git config --local user.email "ci@leftshift.one" && git config --local user.name "Continuous Integration"
       - run: chmod a+x gradlew
       - run: ./gradlew build --stacktrace
-      - run: ./gradlew final publish -Prelease.useLastTag=true --stacktrace
+      - run: ./gradlew final publish -Prelease.useLastTag=true -x compileTestKotlin -x test --stacktrace
       - run:
           <<: *webhook-failed
 
