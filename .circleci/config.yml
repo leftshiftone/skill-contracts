@@ -54,7 +54,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      - image: python:3.7-stretch
     environment:
       GRADLE_OPTS: '-Xmx128m -Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1024m"'
     steps:
