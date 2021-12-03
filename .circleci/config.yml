@@ -71,7 +71,7 @@ jobs:
       - run: git config --local user.email "ci@leftshift.one" && git config --local user.name "Continuous Integration"
       - run: chmod a+x gradlew
       - run: ./gradlew build --stacktrace
-      - run: ./gradlew final publishReleasePublicationToSonatypeRepository -Prelease.useLastTag=true --max-workers 1 closeAndReleaseRepository -x compileTestKotlin -x test --stacktrace
+      - run: ./gradlew final publishReleasePublicationToSonatypeRepository -Prelease.useLastTag=true --max-workers 1 closeAndReleaseRepository -x compileTestKotlin -x test -x generateLock -x saveLock --stacktrace
       - run:
           <<: *webhook-failed
 
