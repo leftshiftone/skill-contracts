@@ -101,10 +101,10 @@ compileTestKotlin {
 }
 
 dependencies {
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
+    testImplementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3"
     testImplementation "org.assertj:assertj-core:3.16.1"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.6.2"
     testImplementation "io.reactivex.rxjava2:rxjava:2.2.19"
