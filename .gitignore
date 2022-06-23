@@ -38,3 +38,6 @@ hs_err_pid*
 **/*.toDelete
 ansible/*.retry
 .sdkmanrc
+
+#asdf 
+.tool-versions
