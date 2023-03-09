@@ -82,8 +82,8 @@ class ValidationTest {
 
     fun testSerialization(engine: DynabuffersEngine, message: String, namespace: String){
         val messageMap = preprocess(ObjectMapper().readValue(message, Map::class.java))
-        val bytes = engine.serialize(namespace, messageMap as Map<String,Any>)
-        val deserializedMap = engine.deserialize(namespace, bytes)
+        val bytes = engine.serialize(messageMap as Map<String,Any>, namespace)
+        val deserializedMap = engine.deserialize(bytes)
         assertMap(deserializedMap.toMap(), messageMap)
     }
 
