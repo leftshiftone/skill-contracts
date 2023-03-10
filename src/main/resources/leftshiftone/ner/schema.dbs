@@ -3,14 +3,12 @@ namespace incoming{
         @NotBlank
         text: string
         language: string?
-        strategy: string?
     }
 }
 
 namespace outgoing {
     class Response {
       ner: [NERResult]
-      strategy: string?
     }
 
     class NERResult {
@@ -18,7 +16,7 @@ namespace outgoing {
         text: string
         start_char: int
         end_char: int
-        label: string
+        label: string?
     }
 }
 
